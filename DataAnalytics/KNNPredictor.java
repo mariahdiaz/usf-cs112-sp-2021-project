@@ -116,7 +116,31 @@ public class KNNPredictor extends Predictor {
 		
 		
 	}
+	public ArrayList<DataPoint> getTrainingData(){
+		ArrayList<DataPoint> trainingData= new ArrayList<DataPoint>();
+		for(int i=0; i<allPoints.size(); i++) {
+			DataPoint otherPoint= allPoints.get(i);
+			if (!otherPoint.isTest()) {
+				trainingData.add(otherPoint);
+			}
+			
+		}
+		return trainingData;
 		
+	}
+	public ArrayList<DataPoint> getTestData(){
+		ArrayList<DataPoint> testData= new ArrayList<DataPoint>();
+		for(int i=0; i<allPoints.size(); i++) {
+			DataPoint otherPoint= allPoints.get(i);
+			if (otherPoint.isTest()) {
+				testData.add(otherPoint);
+			}
+			
+		}
+		return testData;
+		
+	}
+			
 		
 	
 	
