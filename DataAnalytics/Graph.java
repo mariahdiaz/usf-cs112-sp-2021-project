@@ -57,10 +57,10 @@ public class Graph extends JPanel {
 	/**
 	 * Constructor method
 	 */
-    public Graph(String filename)  throws IOException {
+    public Graph(String filename int k)  throws IOException {
         
      // TODO: instantiate a KNNModel variable
-        this.knn= new KNNPredictor(9); 
+        this.knn= new KNNPredictor(k); 
         // TODO: Run train with the trainData
        
          knn.readData(filename);
@@ -218,11 +218,11 @@ public class Graph extends JPanel {
     }
 
     /*  Run createAndShowGui in the main method, where we create the frame too and pack it in the panel*/
-    private static void createAndShowGui() throws IOException {
+    private static void createAndShowGui(int k) throws IOException {
 
     	
 	    /* Main panel */
-        Graph mainPanel = new Graph("titanic.csv");
+        Graph mainPanel = new Graph("titanic.csv", k);
         
         Double accuracy=knn.getAccuracy(data);
         Double precision=knn.getPrecision(data);
@@ -241,13 +241,37 @@ public class Graph extends JPanel {
 
         
         Container contentPane = frame.getContentPane();
-        contentPane.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
-		 contentPane.add(new Label("Accuracy:"+accuracy));
-		 contentPane.add(new Label("Precision:"+precision));
-		 contentPane.add(pointDisplay);
-		 frame.pack();
-		 frame.setLocationRelativeTo(null);
-	     frame.setVisible(true);
+        contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
+		
+        JPanel contentPaneTwo= new JPanel();
+        
+         contentPaneTwo.add(new Label("Accuracy:"+accuracy));
+		 contentPaneTwo.add(new Label("Precision:"+precision));
+		 contentPaneTwo.add(pointDisplay);
+		 contentPane.add(contentPaneTwo);
+		 
+		 JPanel contentPaneThree= new JPanel();
+		 contentPaneThree.add(new Label("Choose the majority value:"));
+		 JSlider slider= new JSlider(2, 25,5);
+		 slider.setMajorTickSpacing(5);
+		 slider.setMinorTickSpacing(1);
+		 slider.setPaintTicks(true);
+		 slider.setSnapToTicks(true);
+		 contentPaneThree.add(slider);
+		 JButton run= new JButton("Run Test");
+		 RunButtonListener runValue= new RunButtonListener();
+		 run.addActionListener(runValue);
+		 contentPaneThree.add(run);
+		 contentPane.add(contentPaneThree);
+		 
+		 runValue.setMyJSlider(slider);
+		 runValue.setMyFrame(frame);
+		 
+		
+	    
+	    frame.pack();
+	    frame.setLocationRelativeTo(null);
+	    frame.setVisible(true);
 	     
 	     MouseListenerGraph click= new MouseListenerGraph();
 	     click.setMyLabel(l);
@@ -271,7 +295,7 @@ public class Graph extends JPanel {
             // TODO: Pass in the testData and trainData separately 
             // Be careful with the order of the variables.
             try {
-				createAndShowGui();
+				createAndShowGui(9);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
