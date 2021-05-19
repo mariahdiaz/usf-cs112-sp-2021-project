@@ -1,3 +1,5 @@
+
+
 package DataAnalytics;
 
 import java.io.File;
@@ -27,11 +29,9 @@ public class KNNPredictor extends Predictor {
 		private double getDistance(DataPoint p1, DataPoint p2) {
 			double x=p1.getF1()-p2.getF1();
 			double y=p1.getF2()-p2.getF2();
-			double z=p1.getF3()-p2.getF3();
-			double w=p1.getF4()-p2.getF4();
 			
-			double xyzw=(x*x)+(y*y)+(z*z)+(w*w);
-			double d=Math.sqrt(xyzw);
+			double xy=(x*x)+(y*y);
+			double d=Math.sqrt(xy);
 			return d;
 		}
 	
@@ -84,21 +84,10 @@ public class KNNPredictor extends Predictor {
 					}
 					
 				}
-				double sex=0;
-				if (dataPoints[4].equals("female")) {
-					sex=0;
-					//female =0
-				}
-				else {
-					sex=1;
-					//male =1
-				}
 			
 				
 				DataPoint dp= new DataPoint(Double.parseDouble(dataPoints[5]),
 						Double.parseDouble(dataPoints[6]), 
-						Double.parseDouble(dataPoints[0]), 
-						sex,
 						label, 
 						isTest);
 				allData.add(dp);
@@ -140,7 +129,7 @@ public class KNNPredictor extends Predictor {
 		return testData;
 		
 	}
-			
+		
 		
 	
 	
