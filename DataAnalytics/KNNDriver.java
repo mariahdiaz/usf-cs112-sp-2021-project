@@ -24,7 +24,7 @@ public class KNNDriver {
 			System.out.println("Mismatch value input error, default value set at "+ k);
 		}
 	
-		Predictor knn= new KNNPredictor(k);
+		Predictor knn= new KNNPredictor4D(k);
 		 ArrayList<DataPoint> myData = knn.readData("titanic.csv");
 		 
 		Double accuracyTest= knn.getAccuracy(myData);
