@@ -8,6 +8,21 @@ public class DataPoint {
 	private String label;
 	private Boolean isTest;
 	
+	public DataPoint(Double f1, Double f2, String label, Boolean isTest) {
+		this.f1=f1;
+		this.f2=f2;
+		setLabel(label);
+		setIsTest(isTest);
+	}
+	
+	public DataPoint () {
+		 f1=0.0;
+		 f2=0.0;
+		 label=null;
+		 isTest=true;
+	}
+	
+	
 	public DataPoint(Double f1, Double f2, Double f3, Double f4, String label, Boolean isTest) {
 		setF1(f1);
 		setF2(f2);
@@ -18,12 +33,6 @@ public class DataPoint {
 	}
 
 	
-	public DataPoint () {
-		 f1=0.0;
-		 f2=0.0;
-		 label=null;
-		 isTest=true;
-	}
 	
 	public Double getF1() {
 		return this.f1;
